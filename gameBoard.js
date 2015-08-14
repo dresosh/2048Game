@@ -1,4 +1,7 @@
-var gameBoard = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ];
+var gameBoard = [ [ 0, 0, 0, 0 ],
+				  [ 0, 0, 0, 0 ],
+				  [ 0, 0, 0, 0 ],
+				  [ 0, 0, 0, 0 ] ];
 
 function printBoard( board ) {
 	var strBoard = "";
