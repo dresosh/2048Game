@@ -1,101 +1,108 @@
 <html>
 <head>
-	<title>This game's tight I promise</title>
+	<title>2048Test</title>
 	<link rel="stylesheet" type="text/css" href="main.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 </head>
 <body>
-	<div class="boardContainer">
-		<div class="mainBoard">
+
+	<div class="scores">
+		<h2>Player 1:<h2>
+		<h2 class="points" id="player1">0</h2>
+		
+		<h2>Player 2:<h2>
+		<h2 class="points" id="player2">0</h2>
+	</div>
+	<div class="mainBoard" >
+		<div class="bgBoard" >
 			<div class="row">
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
 			</div>
 			<div class="row">
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
 			</div>
 			<div class="row">
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
 			</div>
 			<div class="row">
-				<div class="box">
-					<h1 class="number"></h1>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+				<div class="box"></div>
+			</div>
+		</div>
+
+		<div class="gameBoard">
+			<div class="row layer2">
+				<div class="number tile">
+					<h1 class="tileNumber">2</h1>
 				</div>
-				<div class="box">
-					<h1 class="number"></h1>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
 				</div>
-				<div class="box">
-					<h1 class="number"></h1>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
 				</div>
-				<div class="box">
-					<h1 class="number"></h1>
-				</div>
-				<div class="box">
-					<h1 class="number"></h1>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
 				</div>
 			</div>
-			<div class="row">
-				<div class="box">
-					<h1 class="number"></h1>
+			<div class="row layer2">
+				<div class="number">
+					<h1 class="tileNumber"></h1>
 				</div>
-				<div class="box">
-					<h1 class="number"></h1>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
 				</div>
-				<div class="box">
-					<h1 class="number"></h1>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
 				</div>
-				<div class="box">
-					<h1 class="number"></h1>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
 				</div>
-				<div class="box">
-					<h1 class="number"></h1>
+			</div>
+			<div class="row layer2">
+				<div class="number">	
+					<h1 class="tileNumber"></h1>
+				</div>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
+				</div>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
+				</div>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
+				</div>
+			</div>
+			<div class="row layer2">
+				<div class="number">
+					<h1 class="tileNumber"></h1>
+				</div>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
+				</div>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
+				</div>
+				<div class="number">
+					<h1 class="tileNumber"></h1>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<script type="text/javascript" src="gameBoard.js"></script>
+	
 
+	<script type="text/javascript" src="./game.js"></script>
 </body>
 </html>
