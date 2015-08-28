@@ -55,6 +55,7 @@ function copyArray( array ) {
 
 //CHECK FOR IF TILES ARE EQUAL FOR MERGING
 function areEqual( arrOne, arrTwo ) {
+	p("Please show up")
 	for ( var row = 0; row < arrOne.length; row++ ) {
 		for ( var col = 0; col < arrOne[ row ].length; col++ ) {
 			if ( arrOne[ row ][ col ] !== arrTwo[ row ][ col ] ) {
@@ -121,6 +122,7 @@ function leftMove( arrayLeft ) {
 				arrayLeft[ row ].push( 0 );
 			}
 		}
+		p("Weeeee Ooooooo Weeeeee Oooooooo Weeeeee");
 	}
 
 	return arrayLeft;
@@ -178,6 +180,7 @@ function rotate( rotateArray ) {
 //ROTATE ARRAY CLOCKWISE
 function unRotate( unRotateArray ) {
 	var tempArray = copyArray( unRotateArray );
+	p("Something something something pineapples")
 
 	for ( var tempRow = 0, unRotateCol = 0; tempRow < tempArray.length; tempRow++, unRotateCol++ ) {
 		for ( var tempCol = 0, unRotateRow = unRotateArray.length - 1; tempCol < tempArray[ tempRow ].length; tempCol++, unRotateRow-- ) {
@@ -198,6 +201,7 @@ function setDivs() {
 				boxes[ cnt ].className = "number";
 				cnt++;
 			} else {
+				p("Darth Vader")
 				boxes[ cnt ].className = "number tile";
 				hText[ cnt ].innerText = boxArray[ row ][ col ];
 				cnt++;
@@ -260,6 +264,7 @@ function arrows( keyNum ) {
 	}
 
 	p("player1 = " + player1);
+	p("Lol")
 }
 
 //PLAYER 2 CONTROLS
@@ -295,6 +300,7 @@ function letters( keyNum ) {
 	}
 
 	p("player2 = " + player2);
+	p("Bannanas!")
 }
 
 //LOAD GAME
