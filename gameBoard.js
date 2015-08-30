@@ -1,8 +1,8 @@
 var boxArray = [ 
+			[ 2, 0, 0, 0 ],
 			[ 0, 0, 0, 0 ],
 			[ 0, 0, 0, 0 ],
-			[ 0, 0, 0, 0 ],
-			[ 0, 0, 0, 0 ]
+			[ 2, 0, 0, 0 ]
 		   ];
 
 var lastBoxArray = [];
@@ -10,6 +10,7 @@ var player = true;
 
 var player1 = 0;
 var player2 = 0;
+var turnCount = 0;
 
 var boxes = document.querySelectorAll( ".number" );
 var hText = document.querySelectorAll( ".tileNumber");
@@ -128,67 +129,27 @@ function leftMove( arrayLeft ) {
 	return arrayLeft;
 }
 
-//MOVE TILES TO RIGHT AND MERGE
-function rightMove( arrayRight ) {
-	var cnt = 0;
-	for ( var row = 0; row < arrayRight.length; row++ ) {
-		//Checks rows for zeroes and moves them to end of row.
-		cnt = 0;
-		for ( var col = arrayRight[ row ].length - 1 ; col >= 0; col-- ) {
-			//p("column = " + col );
-			//If box at location is a zero and you haven't checked the same place more than 4 times
-			//p( "Outside rightMove zeroes check if, row = " + row + " col = " + col + "cnt = " + cnt );
-			if ( arrayRight[ row ][ col ] === 0 && cnt < 5 ) {
-				arrayRight[ row ].splice( col, 1 );
-				arrayRight[ row ].unshift( 0 );
-				col++;
-				cnt++;
-			} else {
-				cnt = 0;
-			}
-		}
-		//Cycle through each col to see if adds can happen.
-		for ( var col = arrayRight[ row ].length; col >= 0; col-- ) {
-			//If box at next col is equal to current and col + isn't out of range of array and box at col isn't 0.
-			if ( ( col - 1 >= 0 ) && ( arrayRight[ row ][ col ] === arrayRight[ row ][ col - 1 ] ) && ( arrayRight[ row ][ col ] !== 0 ) ) {
-				arrayRight[ row ][ col ] *= 2;
-				addPlayerScore( arrayRight[ row ][ col ] );
-				arrayRight[ row ].splice( col - 1, 1 );
-				arrayRight[ row ].unshift( 0 );
-			}
-		}
-	}
-
-	return arrayRight;
-}
-
 //ROTATE ARRAY COUNTERCLOCKWISE
-function rotate( rotateArray ) {
+function rotate( rotateArray, num ) {
 
 	var tempArray = copyArray( rotateArray );
 
-	for ( var rotateRow = 0, tempCol = 0; rotateRow < rotateArray.length; rotateRow++, tempCol++ ) {
-		for ( var rotateCol = 0, tempRow = tempArray.length - 1; rotateCol < rotateArray[ rotateRow ].length; rotateCol++, tempRow-- ) {
-			//p( "rotate = " + rotateArray[ rotateRow ][ rotateCol ] );
-			tempArray[ tempRow ][ tempCol ] = rotateArray[ rotateRow ][ rotateCol ];
-			//p( " temp = " + tempArray[ tempRow ][ tempCol ] );
+	//while ( num > 0 ) {
+		for ( var rotateRow = 0, tempCol = 0; rotateRow < rotateArray.length; rotateRow++, tempCol++ ) {
+			for ( var rotateCol = 0, tempRow = tempArray.length - 1; rotateCol < rotateArray[ rotateRow ].length; rotateCol++, tempRow-- ) {
+				//p( "rotate = " + rotateArray[ rotateRow ][ rotateCol ] );
+				tempArray[ tempRow ][ tempCol ] = rotateArray[ rotateRow ][ rotateCol ];
+				//p( " temp = " + tempArray[ tempRow ][ tempCol ] );
+			}
 		}
-	}
-	return tempArray;
-}
-
-//ROTATE ARRAY CLOCKWISE
-function unRotate( unRotateArray ) {
-	var tempArray = copyArray( unRotateArray );
-	p("Something something something pineapples")
-
-	for ( var tempRow = 0, unRotateCol = 0; tempRow < tempArray.length; tempRow++, unRotateCol++ ) {
-		for ( var tempCol = 0, unRotateRow = unRotateArray.length - 1; tempCol < tempArray[ tempRow ].length; tempCol++, unRotateRow-- ) {
-			tempArray[ tempRow ][ tempCol ] = unRotateArray[ unRotateRow ][ unRotateCol ];
-			//p( "temp[ Row ][ Col ] = [ " + tempRow + " ][ " + tempCol + " ]  Unrotate = [ " + unRotateRow + " ][ " + unRotateCol + " ]");
-		
-		}
-	}
+		p( "before recursion" + " num = " + num + " tempArray = " );
+		printArray( tempArray );
+		return num > 1 ? rotate( tempArray, --num ) : tempArray;
+		//p( "after recursion" + " num = " + num + " tempArray = " );
+		//printArray( tempArray );
+	//}
+	//p("Before returning " + " num = " + num + " tempArray = " );
+		//printArray( tempArray );
 	return tempArray;
 }
 
@@ -201,7 +162,7 @@ function setDivs() {
 				boxes[ cnt ].className = "number";
 				cnt++;
 			} else {
-				p("Darth Vader")
+				//p("Darth Vader")
 				boxes[ cnt ].className = "number tile";
 				hText[ cnt ].innerText = boxArray[ row ][ col ];
 				cnt++;
@@ -209,31 +170,32 @@ function setDivs() {
 		}
 	}
 
-	printArray( boxArray );
+	//printArray( boxArray );
 
 	player1Div.innerText = player1;
 	player2Div.innerText = player2;
 }
 
-//UNDO ONE MOVE FOR USE IN TROUBLESHOOTING
+//UNDO ONE MOVE AT A TIME FOR USE IN TROUBLESHOOTING
 function undo() {
-	boxArray = copyArray( lastBoxArray );
+	boxArray = copyArray( lastBoxArray.pop() );
 	setDivs();
 }
 
 //PLAYER 1 CONTROL SWITCH
 function arrows( keyNum ) {
 	
-	lastBoxArray = copyArray( boxArray );
+	lastBoxArray.push( copyArray( boxArray ) );
 
 	switch( keyNum ) {
 		case 38 :
 			//p( "move up hasn't been made yet" );
 			//printBox();
-			boxArray = rotate( boxArray );
+			boxArray = rotate( boxArray, 1 );
 			boxArray = leftMove( boxArray );
+			boxArray = rotate( boxArray, 3 );
 			//printArray( boxArray );
-			boxArray = unRotate( boxArray );
+			//boxArray = unRotate( boxArray );
 			// printArray( boxArray );
 			break;
 		case 37 :
@@ -242,14 +204,16 @@ function arrows( keyNum ) {
 			// printArray( boxArray );
 			break;
 		case 40 :
-			boxArray = rotate( boxArray );
-			boxArray = rightMove( boxArray );
-			boxArray = unRotate( boxArray );
+			boxArray = rotate( boxArray, 3 );
+			boxArray = leftMove( boxArray );
+			boxArray = rotate( boxArray, 1 );
 			// printArray( boxArray );
 			break;
 		case 39 :
 			//p( "move right hasn't been made yet" );
-			boxArray = rightMove( boxArray );
+			boxArray = rotate( boxArray, 2 );
+			boxArray = leftMove( boxArray );
+			boxArray = rotate( boxArray, 2 );
 			// printArray( boxArray );
 			break;
 		default : 
@@ -257,14 +221,14 @@ function arrows( keyNum ) {
 
 	}
 	
-	if ( !areEqual( boxArray, lastBoxArray ) ) {
-		player = !player;
-		setTimeout( addRandom(), 5000);
-		setDivs();
-	}
+	// if ( !areEqual( boxArray, lastBoxArray ) ) {
+	// 	player = !player;
+	// 	setTimeout( addRandom(), 5000);
+	// 	setDivs();
+	// }
 
-	p("player1 = " + player1);
-	p("Lol")
+	setDivs();
+	turnCount++;
 }
 
 //PLAYER 2 CONTROLS
@@ -298,6 +262,7 @@ function letters( keyNum ) {
 		setTimeout( addRandom(), 5000);
 		setDivs();
 	}
+	p("hello")
 
 	p("player2 = " + player2);
 	p("Bannanas!")
@@ -313,6 +278,14 @@ document.addEventListener( "keydown", function( key ) {
 	//console.log( this );
 	console.log( key.keyCode )
 	//player ? arrows( key.keyCode ) : letters( key.keyCode );
-	player ? arrows( key.keyCode ) : letters( key.keyCode );
-	//arrows( key.keyCode );
-})
+	//player ? arrows( key.keyCode ) : letters( key.keyCode );
+	arrows( key.keyCode );
+});
+
+
+
+
+
+
+
+
